@@ -1,0 +1,34 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h3 class="text-center">Welcome @User.Identity.Name</h3>
+    <h5 class="text-center">You're Logged In As an Admin</h5>
+    <h6 class="text-center">here's what you can do.</h6>
+
+</div>
+<div class="row p-3 mt-5">
+    <div class="col-md-4  shadow p-3  bg-white rounded border">
+        <h4 class="text-center">Manage Exams</h4>
+        <p class="text-center">
+            View all available exames and Choose One to Take.
+        </p>
+        <p>@Html.ActionLink("See More ","Index","Exams",routeValues: null, htmlAttributes: new {@class = "btn mt-5 btn-block btn-outline-primary"})</p>
+    </div>
+    <div class="col-md-4 shadow p-3  bg-white   rounded border">
+     
+        <h4 class="text-center">Manage Students</h4>
+        <p class="text-center">
+            Edit and Manage users profile information.
+        </p>
+        <p>@Html.ActionLink("See More ", "Index", "Students", routeValues: null, htmlAttributes: new { @class = "btn mt-5 btn-block btn-outline-primary" })</p>
+    </div>
+    <div class="col-md-4 shadow p-3  bg-white rounded  border">
+        <h4 class="text-center">Manage Results History</h4>
+        <p class="text-center">
+            View and manage the history of the results for all the exams.
+        </p>
+        <p>@Html.ActionLink("See More ", "Index", "Results", routeValues: null, htmlAttributes: new { @class = "mt-5 btn btn-block btn-outline-primary" })</p>
+    </div>
+</div>

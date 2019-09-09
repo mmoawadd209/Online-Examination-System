@@ -1,0 +1,78 @@
+﻿
+
+@model OnlineExamination.ViewModels.ExamViewModel
+@{
+    ViewBag.Title = "Index";
+}
+    <div class="m-3">
+        <h5>Manage All Exams</h5>
+        <p>here you can manage all the exams available on the system.</p>
+    </div>
+    
+@using (Html.BeginForm("Create", "Exams", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+<div class="row m-4">
+    <div class="col-md-4">
+        @Html.LabelFor(model => model.DomainModel.Name, htmlAttributes: new { @class = "control-label" })
+        @Html.EditorFor(model => model.DomainModel.Name, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.DomainModel.Name, "", new { @class = "text-danger" })
+    </div>
+    <div class="col-md-4">
+        @Html.LabelFor(model => Model.DomainModel.DurationInMinutes, htmlAttributes: new { @class = "control-label" })
+        @Html.EditorFor(model => model.DomainModel.DurationInMinutes, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.DomainModel.DurationInMinutes, "", new { @class = "text-danger" })
+    </div>
+    <input type="submit" value="Add New Exam" style="max-height:50px" class="btn ml-5 mt-4 btn-primary" />
+
+</div>
+   
+}
+
+
+<table id="Exams" class="table table-bordered table-hover">
+    <tr class="table-dark">
+        <th>
+            Exam Name
+        </th>
+        <th>
+            Duration In Minutes
+        </th>
+        <th>
+            Status
+        </th>
+        <th>
+            Actions
+        </th>
+    </tr>
+
+
+    @foreach (var Exam in Model.ExamsList)
+    {
+<tr>
+    <td><a href="@Url.Action("Details","Exams",new { id = Exam.Id})">@Exam.Name</a> </td>
+    <td>@Exam.DurationInMinutes</td>
+    <td>@((OnlineExamination.Enums.ExamStatusEnum)Exam.Status)</td>
+
+    <td class="justify-content-around d-flex">
+        <a title="Edit Exam" href="@Url.Action("Edit","Exams",new { id = Exam.Id})"><i class="far fa-edit"></i></a>
+        <a title="Delete Exam" href="@Url.Action("Delete","Exams",new { id = Exam.Id})"><i class="far fa-trash-alt"></i></a>
+    </td>
+</tr>
+    }
+</table>
+
+@section scripts
+    {
+    <script>
+        $(document).ready(function () {
+            $("#Exams").DataTable();
+        });
+    </script>
+}
+
+
+

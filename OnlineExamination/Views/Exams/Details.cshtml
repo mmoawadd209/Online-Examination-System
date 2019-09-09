@@ -1,0 +1,58 @@
+﻿@model OnlineExamination.ViewModels.ExamDetailsViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+    <div class="jumbotron justify-content-between d-flex  navbar-text">
+        <span>Name: @Model.DomainModel.Name Exam</span>     <span>Duration:@Model.DomainModel.DurationInMinutes  min.</span> 
+    </div>
+
+
+@using (Html.BeginForm("Create", "Questions", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+<div class="row m-4">
+    <div class="col-md-4 form-group">
+        @Html.LabelFor(model => model.QuestionModel.Text, htmlAttributes: new { @class = "control-label " })
+        @Html.TextAreaFor(model => model.QuestionModel.Text, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.QuestionModel.Text, "", new { @class = "text-danger" })
+    </div>
+    <input type="submit" value="Add question To this Exam" style="max-height:50px " class="btn btn-primary mt-5" />
+</div>
+    @Html.HiddenFor(m=>m.DomainModel.Id)
+}
+
+
+
+<table id="Exams" class="table table-bordered table-hover">
+    <tr class="table-dark">
+        <th>
+            Text
+        </th>
+        <th>
+            actions
+        </th>
+
+    </tr>
+
+    @foreach (var question in Model.DomainModel.Questions)
+    {
+        <tr>
+            <td><a href="@Url.Action("Details","Questions",new { id = question.Id})">@question.Text</a> </td>
+
+
+            <td class="justify-content-around d-flex">
+                <a title="Edit Question" href="/Questions/Edit/@question.Id"><i class="far fa-edit"></i></a>
+                <a title="Delete Question" href="/Questions/Delete/@question.Id"><i class="far fa-trash-alt"></i></a>
+            </td>
+        </tr>
+    }
+</table>
+
+<p>
+    <a class="ml-2 btn btn-info" href="/Exams/Index">Back to List</a>
+
+</p>

@@ -1,0 +1,65 @@
+﻿@model List<OnlineExamination.Models.Exam>
+@{
+    ViewBag.Title = "Home Page";
+}
+
+
+<div class="jumbotron shadow-lg">
+    <h1 class="text-center " >
+        Online Examination System
+    </h1>
+    <p class="text-center">
+        To help students with taking tests and generating results immediately.
+    </p>
+</div>
+
+
+<div class="jumbotron shadow-lg">
+    <div class="row w-100">
+        @foreach (var exam in Model)
+        {
+            <div class="col-md-4 mb-5">
+                <div class="card border-info mx-sm-1 p-3">
+                    <div class="text-info text-center mt-3"><h3>@exam.Name</h3></div>
+                    <div class="text-info text-center mt-2"><h6>no of questions:@exam.Questions.Count()</h6></div>
+                    <div class="text-info text-center mt-2"><h5>duration:@exam.DurationInMinutes min</h5></div>
+                    <div><a class="btn btn-outline-info btn-block" href="/Exams/Details/@exam.Id">See More>></a></div>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+@*<div class="row p-3 mt-5">
+    <div class="col-md-4  shadow p-3    bg-white rounded border">
+        <h4>View Available Exams</h4>
+        <p>
+            View all available exames and Choose One to Take.
+        </p>
+        <p>@Html.ActionLink("See More ","Index","Exams",routeValues: null, htmlAttributes: new {@class = "btn btn-primary"})</p>
+    </div>
+    <div class="col-md-4 shadow p-3  bg-white  rounded border">
+     
+        <h4>Edit Your Profile</h4>
+        <p>
+            Edit and Manage your profile information.
+        </p>
+        <p>@Html.ActionLink("See More ", "Update", "Profile", routeValues: null, htmlAttributes: new { @class = "btn btn-primary" })</p>
+    </div>
+    <div class="col-md-4 shadow p-3  bg-white rounded  border">
+        <h4>Your Results History</h4>
+        <p>
+            View the history of the results for all the exams you took.
+        </p>
+        <p>@Html.ActionLink("See More ", "History", "Results", routeValues: null, htmlAttributes: new { @class = "btn btn-primary" })</p>
+    </div>
+</div>*@

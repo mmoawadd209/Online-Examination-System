@@ -1,0 +1,108 @@
+﻿@model OnlineExamination.ViewModels.ResultViewModel
+
+    <div class="container">
+        <div class="bg-warning border shadow-sm p-3 rounded-circle " style="position:fixed; right: 20px"> <span id="time"></span> Minutes Left</div>
+
+        <form id="myForm" action="/Results/Create" method="post">
+            @Html.HiddenFor(x => x.Exam.Id)
+            <input type="hidden" name="DomainModel.ExamId" value="@Model.Exam.Id" />
+            <input id="js-score" type="hidden" name="DomainModel.Score" value="" />
+
+            @foreach (var question in Model.Questions)
+            {
+                <div class="jumbotron p-5 m-5 shadow-lg">
+                    <h5>@question.Text</h5>
+                </div>
+                <ul class="list-group list-unstyled">
+                    @foreach (var choice in question.Choices)
+                    {
+                        <li class="list-group-item">
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" value="@choice.IsCorrect" class="js-radio" />
+                                    <span class="ml-3">@choice.Text</span>
+                                </label>
+                            </div>
+                        </li>
+                    }
+                </ul>
+
+            }
+
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <button id="subBtn" class="btn btn-success m-5">Submit Answers</button>
+
+        </form>
+
+    </div>
+
+@section Scripts {
+
+    <script>
+        function startTimer(duration, display) {
+    var start = Date.now(),
+        diff,
+        minutes,
+        seconds;
+    function timer() {
+        // get the number of seconds that have elapsed since 
+        // startTimer() was called
+        diff = duration - (((Date.now() - start) / 1000) | 0);
+
+        // does the same job as parseInt truncates the float
+        minutes = (diff / 60) | 0;
+        seconds = (diff % 60) | 0;
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.textContent = minutes + ":" + seconds; 
+
+        if (diff <= 0) {
+            // add one second so that the count down starts at the full duration
+            // example 05:00 not 04:59
+            start = Date.now() + 1000;
+        }
+    };
+    // we don't want to wait a full second before the timer starts
+    timer();
+    setInterval(timer, 1000);
+}
+
+window.onload = function () {
+    var minutesToSeconds = 60 * @Model.Exam.DurationInMinutes,
+        display = document.querySelector('#time');
+    startTimer(minutesToSeconds, display);
+};
+    </script>
+
+    <script>
+
+
+            var score = 0
+            $.each($('.js-radio'),function(){
+                if ($(this).val())
+                score +=1        
+            });
+
+            $("#js-score").attr("value",score)
+            $("#js-time").attr("value", Date.now())
+      
+
+
+        $(document).ready(function(){
+            $("#subBtn").click(function () {  
+             var score = 0
+            $.each($('.js-radio'),function(){
+                if ($(this).val())
+                score +=1        
+            });
+
+            $("#js-score").attr("value",score)
+
+        $("#myForm").submit(); // Submit the form
+    });
+});
+    </script>
+}

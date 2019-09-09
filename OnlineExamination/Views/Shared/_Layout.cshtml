@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Online Examination System</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <script src="https://kit.fontawesome.com/d1fc384ece.js"></script>
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-sm   navbar-dark bg-dark">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+             
+            @*<li class="nav-item">
+                @Html.ActionLink("Manage Students", "Index", "Students", routeValues: null, htmlAttributes: new { @class = "nav-link" })
+            </li>
+            <li class="nav-item">
+                @Html.ActionLink("Manage Exames", "Index", "Exames", routeValues: null, htmlAttributes: new { @class = "nav-link" })
+            </li>*@
+                
+
+            </ul>
+            <div>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </nav>
+
+
+
+    <div class="container-fluid">
+        @RenderBody()
+        <hr />
+        <footer class="footer mt-auto py-3">
+            <div class="container">
+                <span class="text-muted">
+                    <text>&copy; @DateTime.Now.Year - Online Examination System</text>
+                </span>
+            </div>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/Lib")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

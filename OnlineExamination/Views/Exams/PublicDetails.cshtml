@@ -1,0 +1,18 @@
+﻿@model OnlineExamination.ViewModels.ExamDetailsViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+    <div class="jumbotron m-5 shadow-lg border p-5">
+        <h3 class="m-3 text-center">@Model.DomainModel.Name Exam</h3>
+        <h6 class="m-3">Duration:@Model.DomainModel.DurationInMinutes  min.</h6>
+        <h6 class="m-3">Number Of Questions = @Model.DomainModel.Questions.Count()</h6>
+        <div class="row">
+            <a class="ml-2 btn btn-lg btn-success" href="/Results/Create/@Model.DomainModel.Id">Start Exam</a>
+            <a class="ml-2 btn btn-info" href="/Home/Index">Back to HomePage</a>
+        </div>
+    </div>
+
+
+
